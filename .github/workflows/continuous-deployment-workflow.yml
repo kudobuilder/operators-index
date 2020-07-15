@@ -1,0 +1,63 @@
+name: Continuous Deployment
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  continuous-deployment:
+    name: Continuous Deployment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          # Fetch HEAD and HEAD~.
+          fetch-depth: 2
+
+      - name: Create temporary repository directory
+        run: mkdir -p $GITHUB_WORKSPACE/repo
+
+      # We use a named container here. Its file system will be re-used by
+      # the other steps so that we only have to authenticate once.
+      - name: Authenticate with Google Cloud
+        env:
+          GCLOUD_SA: ${{ secrets.GOOGLE_CLOUD_SERVICE_ACCOUNT }}
+        run: |
+          docker run --name gcloud-cli \
+            -e GCLOUD_SA \
+            google/cloud-sdk:slim \
+            bash -c 'echo ${GCLOUD_SA} | gcloud auth activate-service-account --key-file=-'
+
+      - name: Pull the current community repository content into the temporary repository
+        run: |
+          docker run --rm --volumes-from gcloud-cli \
+            -v $GITHUB_WORKSPACE/repo:/var/run/repo \
+            google/cloud-sdk:slim \
+            gsutil -m cp -r gs://kudo-repo/index-test /var/run/repo
+
+      - name: Authenticate with Github Packages
+        run: docker login docker.pkg.github.com -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Print added or modified files (debug)
+        run: git diff --name-only --diff-filter=AM HEAD~
+
+      - name: Synchronize operators with temporary repository
+        run: |
+          docker run --rm \
+            -v $GITHUB_WORKSPACE/repo:/var/run/repo \
+            -v $GITHUB_WORKSPACE/operators:/var/run/operators \
+            docker.pkg.github.com/kudobuilder/kitt/kitt:v0.2.1 \
+            update --repository /var/run/repo \
+              --repository_url https://kudo-repo.storage.googleapis.com/index-test/ \
+              $(git diff --name-only --diff-filter=AM HEAD~ | grep operators/ | sed 's/^/\/var\/run\//')
+
+      # We use 'rsync -c' to sync based on checksums and not mtime.
+      # The mtime of the temporary repo will change every time even if the
+      # content did not.
+      - name: Push the temporary repository to the community repository
+        run: |
+          docker run --rm --volumes-from gcloud-cli \
+            -v $GITHUB_WORKSPACE/repo:/var/run/repo \
+            google/cloud-sdk:slim \
+            gsutil -m rsync -c /var/run/repo gs://kudo-repo/index-test
