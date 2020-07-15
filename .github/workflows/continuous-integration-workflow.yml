@@ -1,0 +1,53 @@
+name: Continuous Integration
+on: pull_request
+
+jobs:
+  continuous-integration:
+    name: Continuous Integration
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          # Fetch everything. Needed to reference the PR's base SHA.
+          fetch-depth: 0
+          # Explicitly reference the commit SHA.
+          # Otherwise 'checkout' might use an outdated PR SHA.
+          ref: ${{ github.sha }}
+
+      - name: Create temporary repository directory
+        run: mkdir -p $GITHUB_WORKSPACE/repo
+
+      # We use a named container here. Its file system will be re-used by
+      # the other steps so that we only have to authenticate once.
+      - name: Authenticate with Google Cloud
+        env:
+          GCLOUD_SA: ${{ secrets.GOOGLE_CLOUD_SERVICE_ACCOUNT }}
+        run: |
+          docker run --name gcloud-cli \
+            -e GCLOUD_SA \
+            google/cloud-sdk:slim \
+            bash -c 'echo ${GCLOUD_SA} | gcloud auth activate-service-account --key-file=-'
+
+      - name: Pull the current community repository content into the temporary repository
+        run: |
+          docker run --rm --volumes-from gcloud-cli \
+            -v $GITHUB_WORKSPACE/repo:/var/run/repo \
+            google/cloud-sdk:slim \
+            gsutil -m cp -r gs://kudo-repo/index-test /var/run/repo
+
+      - name: Authenticate with Github Packages
+        run: docker login docker.pkg.github.com -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Print added or modified files (debug)
+        run: git diff --name-only --diff-filter=AM ${{ github.event.pull_request.base.sha }}
+
+      - name: Synchronize added/updated operators with temporary repository
+        run: |
+          docker run --rm \
+            -v $GITHUB_WORKSPACE/repo:/var/run/repo \
+            -v $GITHUB_WORKSPACE/operators:/var/run/operators \
+            docker.pkg.github.com/kudobuilder/kitt/kitt:v0.2.1 \
+            update --repository /var/run/repo \
+              --repository_url https://kudo-repo.storage.googleapis.com/index-test/ \
+              $(git diff --name-only --diff-filter=AM ${{ github.event.pull_request.base.sha }} | grep operators/ | sed 's/^/\/var\/run\//')
