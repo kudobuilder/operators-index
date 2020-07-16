@@ -1,0 +1,12 @@
+apiVersion: index.kudo.dev/v1alpha1
+kind: Operator
+name: Zookeeper
+git-sources:
+- name: operators
+  url: https://github.com/kudobuilder/operators.git
+versions:
+- version: "3.4.14-0.3.0"
+  git:
+    source: operators
+    directory: repository/zookeeper/operator
+    sha: b9036ebc6291b99ff8c10b4947b6e5cf3a159399
