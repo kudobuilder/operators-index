@@ -1,0 +1,12 @@
+apiVersion: index.kudo.dev/v1alpha1
+kind: Operator
+name: RabbitMQ
+git-sources:
+- name: operators
+  url: https://github.com/kudobuilder/operators.git
+versions:
+- version: "3.8.0-0.1.0"
+  git:
+    source: operators
+    directory: repository/rabbitmq/operator
+    sha: a0a79c9615f139472fc23d4dca0d69dccdb7665c

@@ -1,0 +1,17 @@
+apiVersion: index.kudo.dev/v1alpha1
+kind: Operator
+name: Confluent Schema Registry
+git-sources:
+- name: operators
+  url: https://github.com/kudobuilder/operators.git
+versions:
+- version: "5.3.2-0.3.0"
+  git:
+    source: operators
+    directory: repository/confluent-schema-registry/operator
+    sha: 89a1fd281d41e68a22140b4f951397d427889812
+- version: "5.3.2-0.2.1"
+  git:
+    source: operators
+    directory: repository/confluent-schema-registry/operator
+    sha: 55c4e66f77a8a43798276cb43aa844e65c30d72e
