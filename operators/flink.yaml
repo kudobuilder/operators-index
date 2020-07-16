@@ -1,11 +1,12 @@
 apiVersion: index.kudo.dev/v1alpha1
 kind: Operator
 name: Flink
-git-sources:
+gitSources:
 - name: operators
   url: https://github.com/kudobuilder/operators.git
 versions:
-- version: "1.7.2-0.2.1"
+- appVersion: "1.7.2"
+  operatorVersion: "0.2.1"
   git:
     source: operators
     directory: repository/flink/operator
