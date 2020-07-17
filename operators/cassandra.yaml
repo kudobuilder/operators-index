@@ -2,18 +2,18 @@ apiVersion: index.kudo.dev/v1alpha1
 kind: Operator
 name: Cassandra
 gitSources:
-- name: kudo-cassandra-operator
-  url: https://github.com/mesosphere/kudo-cassandra-operator.git
+  - name: kudo-cassandra-operator
+    url: https://github.com/mesosphere/kudo-cassandra-operator.git
 versions:
-- appVersion: "3.11.6"
-  operatorVersion: "1.0.0"
-  git:
-    source: kudo-cassandra-operator
-    directory: operator
-    tag: v3.11.6-1.0.0
-- appVersion: "3.11.5"
-  operatorVersion: "0.1.2"
-  git:
-    source: kudo-cassandra-operator
-    directory: operator
-    tag: v3.11.5-0.1.2
+  - appVersion: "3.11.6"
+    operatorVersion: "1.0.0"
+    git:
+      source: kudo-cassandra-operator
+      directory: operator
+      tag: v3.11.6-1.0.0
+  - appVersion: "3.11.5"
+    operatorVersion: "0.1.2"
+    git:
+      source: kudo-cassandra-operator
+      directory: operator
+      tag: v3.11.5-0.1.2

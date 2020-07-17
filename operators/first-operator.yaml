@@ -2,11 +2,11 @@ apiVersion: index.kudo.dev/v1alpha1
 kind: Operator
 name: First Operator
 gitSources:
-- name: operators
-  url: https://github.com/kudobuilder/operators.git
+  - name: operators
+    url: https://github.com/kudobuilder/operators.git
 versions:
-- operatorVersion: "0.2.0"
-  git:
-    source: operators
-    directory: repository/first-operator/operator
-    sha: 2b5b8ae28a83eb171d1c3094b92a1cc07e8c26f4
+  - operatorVersion: "0.2.0"
+    git:
+      source: operators
+      directory: repository/first-operator/operator
+      sha: 2b5b8ae28a83eb171d1c3094b92a1cc07e8c26f4

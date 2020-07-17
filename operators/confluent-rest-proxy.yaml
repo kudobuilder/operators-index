@@ -2,18 +2,18 @@ apiVersion: index.kudo.dev/v1alpha1
 kind: Operator
 name: Confluent Rest Proxy
 gitSources:
-- name: operators
-  url: https://github.com/kudobuilder/operators.git
+  - name: operators
+    url: https://github.com/kudobuilder/operators.git
 versions:
-- appVersion: "5.3.2"
-  operatorVersion: "0.3.0"
-  git:
-    source: operators
-    directory: repository/confluent-rest-proxy/operator
-    sha: 3919e5231c80911cd8ca352cfddba11685953fdb
-- appVersion: "5.3.2"
-  operatorVersion: "0.2.1"
-  git:
-    source: operators
-    directory: repository/confluent-rest-proxy/operator
-    sha: 8c34d63ff0c28bb9358cb81eea967c30bad4f56c
+  - appVersion: "5.3.2"
+    operatorVersion: "0.3.0"
+    git:
+      source: operators
+      directory: repository/confluent-rest-proxy/operator
+      sha: 3919e5231c80911cd8ca352cfddba11685953fdb
+  - appVersion: "5.3.2"
+    operatorVersion: "0.2.1"
+    git:
+      source: operators
+      directory: repository/confluent-rest-proxy/operator
+      sha: 8c34d63ff0c28bb9358cb81eea967c30bad4f56c

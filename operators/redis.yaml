@@ -2,12 +2,12 @@ apiVersion: index.kudo.dev/v1alpha1
 kind: Operator
 name: Redis
 gitSources:
-- name: operators
-  url: https://github.com/kudobuilder/operators.git
+  - name: operators
+    url: https://github.com/kudobuilder/operators.git
 versions:
-- appVersion: "5.0.1"
-  operatorVersion: "0.2.0"
-  git:
-    source: operators
-    directory: repository/redis/operator
-    sha: 75f64ec77a5d000d801d70885490516a2db15cc6
+  - appVersion: "5.0.1"
+    operatorVersion: "0.2.0"
+    git:
+      source: operators
+      directory: repository/redis/operator
+      sha: 75f64ec77a5d000d801d70885490516a2db15cc6

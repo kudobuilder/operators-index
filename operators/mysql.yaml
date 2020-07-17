@@ -2,18 +2,18 @@ apiVersion: index.kudo.dev/v1alpha1
 kind: Operator
 name: MySQL
 gitSources:
-- name: operators
-  url: https://github.com/kudobuilder/operators.git
+  - name: operators
+    url: https://github.com/kudobuilder/operators.git
 versions:
-- appVersion: "5.7"
-  operatorVersion: "0.3.0"
-  git:
-    source: operators
-    directory: repository/mysql/operator
-    sha: 8a2e41484513397be353bc5db10e8abc685bc975
-- appVersion: "5.7"
-  operatorVersion: "0.2.0"
-  git:
-    source: operators
-    directory: repository/mysql/operator
-    sha: 2b5b8ae28a83eb171d1c3094b92a1cc07e8c26f4
+  - appVersion: "5.7"
+    operatorVersion: "0.3.0"
+    git:
+      source: operators
+      directory: repository/mysql/operator
+      sha: 8a2e41484513397be353bc5db10e8abc685bc975
+  - appVersion: "5.7"
+    operatorVersion: "0.2.0"
+    git:
+      source: operators
+      directory: repository/mysql/operator
+      sha: 2b5b8ae28a83eb171d1c3094b92a1cc07e8c26f4
