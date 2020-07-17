@@ -1,27 +1,31 @@
 apiVersion: index.kudo.dev/v1alpha1
 kind: Operator
 name: Kafka
-git-sources:
-- name: operators
-  url: https://github.com/kudobuilder/operators.git
+gitSources:
+  - name: operators
+    url: https://github.com/kudobuilder/operators.git
 versions:
-- version: "2.5.0-1.3.2"
-  git:
-    source: operators
-    directory: repository/kafka/operator
-    sha: e2354fd0ec4cd23144bf5cc15dc613d45d650748
-- version: "2.5.0-1.3.1"
-  git:
-    source: operators
-    directory: repository/kafka/operator
-    sha: b95e9f9aa149592d402f50ee38148b380baf0602
-- version: "2.5.0-1.3.0"
-  git:
-    source: operators
-    directory: repository/kafka/operator
-    sha: 284b6b2aae0f7952a1cc22854483c479ef569e28
-- version: "2.4.1-1.2.1"
-  git:
-    source: operators
-    directory: repository/kafka/operator
-    sha: 92799adea05cbcee9d409cb6a0ae8359887634fa
+  - appVersion: "2.5.0"
+    operatorVersion: "1.3.2"
+    git:
+      source: operators
+      directory: repository/kafka/operator
+      sha: e2354fd0ec4cd23144bf5cc15dc613d45d650748
+  - appVersion: "2.5.0"
+    operatorVersion: "1.3.1"
+    git:
+      source: operators
+      directory: repository/kafka/operator
+      sha: b95e9f9aa149592d402f50ee38148b380baf0602
+  - appVersion: "2.5.0"
+    operatorVersion: "1.3.0"
+    git:
+      source: operators
+      directory: repository/kafka/operator
+      sha: 284b6b2aae0f7952a1cc22854483c479ef569e28
+  - appVersion: "2.4.1"
+    operatorVersion: "1.2.1"
+    git:
+      source: operators
+      directory: repository/kafka/operator
+      sha: 92799adea05cbcee9d409cb6a0ae8359887634fa

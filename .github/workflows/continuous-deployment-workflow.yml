@@ -47,8 +47,8 @@ jobs:
           docker run --rm \
             -v $GITHUB_WORKSPACE/repo:/var/run/repo \
             -v $GITHUB_WORKSPACE/operators:/var/run/operators \
-            docker.pkg.github.com/kudobuilder/kitt/kitt:v0.2.1 \
-            update --repository /var/run/repo \
+            docker.pkg.github.com/kudobuilder/kitt/kitt:v0.3.0 \
+            update --repository /var/run/repo/index-test \
               --repository_url https://kudo-repo.storage.googleapis.com/index-test/ \
               $(git diff --name-only --diff-filter=AM HEAD~ | grep operators/ | sed 's/^/\/var\/run\//')
 
@@ -60,4 +60,4 @@ jobs:
           docker run --rm --volumes-from gcloud-cli \
             -v $GITHUB_WORKSPACE/repo:/var/run/repo \
             google/cloud-sdk:slim \
-            gsutil -m rsync -c /var/run/repo gs://kudo-repo/index-test
+            gsutil -m rsync -c /var/run/repo/index-test gs://kudo-repo/index-test

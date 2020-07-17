@@ -1,12 +1,13 @@
 apiVersion: index.kudo.dev/v1alpha1
 kind: Operator
 name: Elasticsearch
-git-sources:
-- name: operators
-  url: https://github.com/kudobuilder/operators.git
+gitSources:
+  - name: operators
+    url: https://github.com/kudobuilder/operators.git
 versions:
-- version: "7.0.0-0.2.1"
-  git:
-    source: operators
-    directory: repository/elastic/operator
-    sha: 10c82d668a1a63af4eb887857bd0c40dc4881a99
+  - operatorVersion: "7.0.0"
+    appVersion: "0.2.1"
+    git:
+      source: operators
+      directory: repository/elastic/operator
+      sha: 10c82d668a1a63af4eb887857bd0c40dc4881a99

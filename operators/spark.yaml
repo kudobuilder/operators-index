@@ -1,27 +1,31 @@
 apiVersion: index.kudo.dev/v1alpha1
 kind: Operator
 name: Spark
-git-sources:
-- name: operators
-  url: https://github.com/kudobuilder/operators.git
+gitSources:
+  - name: operators
+    url: https://github.com/kudobuilder/operators.git
 versions:
-- version: "2.4.5-1.0.1"
-  git:
-    source: operators
-    directory: repository/spark/operator
-    sha: d4cbfc347069d1e1f2795525a2c3e04e90b3d8a3
-- version: "2.4.5-1.0.0"
-  git:
-    source: operators
-    directory: repository/spark/operator
-    sha: 1db171b3597ba8de91637df6e94edadea4d97d52
-- version: "2.4.5-0.2.0"
-  git:
-    source: operators
-    directory: repository/spark/operator
-    sha: a60cb076107199935bca5e58bae79b2aaade6fb9
-- version: "2.4.4-0.2.0"
-  git:
-    source: operators
-    directory: repository/spark/operator
-    sha: c39b33f09198e5db89b5366155b4e82c397c6269
+  - appVersion: "2.4.5"
+    operatorVersion: "1.0.1"
+    git:
+      source: operators
+      directory: repository/spark/operator
+      sha: d4cbfc347069d1e1f2795525a2c3e04e90b3d8a3
+  - appVersion: "2.4.5"
+    operatorVersion: "1.0.0"
+    git:
+      source: operators
+      directory: repository/spark/operator
+      sha: 1db171b3597ba8de91637df6e94edadea4d97d52
+  - appVersion: "2.4.5"
+    operatorVersion: "0.2.0"
+    git:
+      source: operators
+      directory: repository/spark/operator
+      sha: a60cb076107199935bca5e58bae79b2aaade6fb9
+  - appVersion: "2.4.4"
+    operatorVersion: "0.2.0"
+    git:
+      source: operators
+      directory: repository/spark/operator
+      sha: c39b33f09198e5db89b5366155b4e82c397c6269
