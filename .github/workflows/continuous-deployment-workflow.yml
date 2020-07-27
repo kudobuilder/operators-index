@@ -47,7 +47,7 @@ jobs:
           docker run --rm \
             -v $GITHUB_WORKSPACE/repo:/var/run/repo \
             -v $GITHUB_WORKSPACE/operators:/var/run/operators \
-            docker.pkg.github.com/kudobuilder/kitt/kitt:v0.3.0 \
+            docker.pkg.github.com/kudobuilder/kitt/kitt:v0.4.0 \
             update --repository /var/run/repo/index-test \
               --repository_url https://kudo-repo.storage.googleapis.com/index-test/ \
               $(git diff --name-only --diff-filter=AM HEAD~ | grep operators/ | sed 's/^/\/var\/run\//')

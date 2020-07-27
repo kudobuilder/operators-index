@@ -42,12 +42,20 @@ jobs:
       - name: Print added or modified files (debug)
         run: git diff --name-only --diff-filter=AM ${{ github.event.pull_request.base.sha }}
 
+      - name: Validate added/updated operators
+        run: |
+          docker run --rm \
+            -v $GITHUB_WORKSPACE/operators:/var/run/operators \
+            docker.pkg.github.com/kudobuilder/kitt/kitt:v0.4.0 \
+            validate \
+              $(git diff --name-only --diff-filter=AM ${{ github.event.pull_request.base.sha }} | grep operators/ | sed 's/^/\/var\/run\//')
+
       - name: Synchronize added/updated operators with temporary repository
         run: |
           docker run --rm \
             -v $GITHUB_WORKSPACE/repo:/var/run/repo \
             -v $GITHUB_WORKSPACE/operators:/var/run/operators \
-            docker.pkg.github.com/kudobuilder/kitt/kitt:v0.3.0 \
+            docker.pkg.github.com/kudobuilder/kitt/kitt:v0.4.0 \
             update --repository /var/run/repo/index-test \
               --repository_url https://kudo-repo.storage.googleapis.com/index-test/ \
               $(git diff --name-only --diff-filter=AM ${{ github.event.pull_request.base.sha }} | grep operators/ | sed 's/^/\/var\/run\//')
