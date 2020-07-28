@@ -34,7 +34,7 @@ jobs:
           docker run --rm --volumes-from gcloud-cli \
             -v $GITHUB_WORKSPACE/repo:/var/run/repo \
             google/cloud-sdk:slim \
-            gsutil -m cp -r gs://kudo-repo/index-test /var/run/repo
+            gsutil -m cp -r gs://kudo-repository/v1 /var/run/repo
 
       - name: Authenticate with Github Packages
         run: docker login docker.pkg.github.com -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
@@ -42,12 +42,20 @@ jobs:
       - name: Print added or modified files (debug)
         run: git diff --name-only --diff-filter=AM ${{ github.event.pull_request.base.sha }}
 
+      - name: Validate added/updated operators
+        run: |
+          docker run --rm \
+            -v $GITHUB_WORKSPACE/operators:/var/run/operators \
+            docker.pkg.github.com/kudobuilder/kitt/kitt:v0.4.0 \
+            validate \
+              $(git diff --name-only --diff-filter=AM ${{ github.event.pull_request.base.sha }} | grep operators/ | sed 's/^/\/var\/run\//')
+
       - name: Synchronize added/updated operators with temporary repository
         run: |
           docker run --rm \
             -v $GITHUB_WORKSPACE/repo:/var/run/repo \
             -v $GITHUB_WORKSPACE/operators:/var/run/operators \
-            docker.pkg.github.com/kudobuilder/kitt/kitt:v0.3.0 \
-            update --repository /var/run/repo/index-test \
-              --repository_url https://kudo-repo.storage.googleapis.com/index-test/ \
+            docker.pkg.github.com/kudobuilder/kitt/kitt:v0.4.0 \
+            update --repository /var/run/repo/v1 \
+              --repository_url https://kudo-repository.storage.googleapis.com/v1/ \
               $(git diff --name-only --diff-filter=AM ${{ github.event.pull_request.base.sha }} | grep operators/ | sed 's/^/\/var\/run\//')
