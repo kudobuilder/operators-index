@@ -1,0 +1,7 @@
+apiVersion: index.kudo.dev/v1alpha1
+kind: Operator
+name: Galera
+versions:
+  - appVersion: "10.5.3"
+    operatorVersion: "0.1.0"
+    url: https://storage.googleapis.com/kudo-repository/0.10.0/galera-10.5.3_0.1.0.tgz
