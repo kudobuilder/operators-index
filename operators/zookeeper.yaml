@@ -11,3 +11,9 @@ versions:
       source: operators
       directory: repository/zookeeper/operator
       sha: 9c98559618ad494daaa16153353e4edd0378d1b4
+  - appVersion: "3.4.14"
+    operatorVersion: "0.3.0"
+    git:
+      source: operators
+      directory: repository/zookeeper/operator
+      sha: b9036ebc6291b99ff8c10b4947b6e5cf3a159399
