@@ -5,6 +5,12 @@ gitSources:
   - name: operators
     url: https://github.com/kudobuilder/operators.git
 versions:
+  - appVersion: "2.5.1"
+    operatorVersion: "1.3.2"
+    git:
+      source: operators
+      directory: repository/kafka/operator
+      sha: 90bdf0ffda1c26a2fefa3d96e66fcc0572090fb9
   - appVersion: "2.5.0"
     operatorVersion: "1.3.2"
     git:
