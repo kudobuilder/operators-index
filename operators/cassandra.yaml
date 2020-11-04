@@ -5,6 +5,12 @@ gitSources:
   - name: kudo-cassandra-operator
     url: https://github.com/mesosphere/kudo-cassandra-operator.git
 versions:
+  - appVersion: "3.11.7"
+    operatorVersion: "1.0.2"
+    git:
+      source: kudo-cassandra-operator
+      directory: operator
+      tag: v3.11.7-1.0.2
   - appVersion: "3.11.6"
     operatorVersion: "1.0.1"
     git:
