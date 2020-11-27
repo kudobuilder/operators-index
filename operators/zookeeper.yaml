@@ -5,6 +5,12 @@ gitSources:
   - name: operators
     url: https://github.com/kudobuilder/operators.git
 versions:
+  - appVersion: "3.6.2"
+    operatorVersion: "0.3.3"
+    git:
+      source: operators
+      directory: repository/zookeeper/operator
+      sha: 9cb9c1e7ae97f96f6ea08a55e16be9ac29f99815
   - appVersion: "3.4.14"
     operatorVersion: "0.3.1"
     git:
